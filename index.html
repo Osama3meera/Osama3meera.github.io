@@ -1,11 +1,346 @@
 <!DOCTYPE html>
-<html>
-<head><title>Redirecting...</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osama Hasan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap">
+  <style>
+    :root {
+      --page-bg: #E3E9F4;
+      --card-shadow: 0 8px 48px rgba(10,20,50,0.14), 0 1px 4px rgba(10,20,50,0.07);
+      --sidebar-bg: #09162A;
+      --accent: #2DD4BF;
+      --accent-dim: rgba(45,212,191,0.13);
+      --accent-border: rgba(45,212,191,0.28);
+      --content-bg: #FFFFFF;
+      --text-primary: #0E1D30;
+      --text-secondary: #49617A;
+      --text-tertiary: #8EA8C2;
+      --border: #DCE7F5;
+      --chip-bg: #EBF2FB;
+      --chip-text: #2B4060;
+      --tl-line: #DDE8F5;
+      --st: rgba(255,255,255,0.82);
+      --st-dim: rgba(255,255,255,0.46);
+      --st-label: rgba(255,255,255,0.30);
+      --st-chip: rgba(255,255,255,0.07);
+      --st-chip-b: rgba(255,255,255,0.11);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page-bg: #080F1A;
+        --card-shadow: 0 8px 48px rgba(0,0,0,0.55);
+        --sidebar-bg: #040A14;
+        --accent-dim: rgba(45,212,191,0.10);
+        --accent-border: rgba(45,212,191,0.22);
+        --content-bg: #0D1520;
+        --text-primary: #CDD9EA;
+        --text-secondary: #6A8AA8;
+        --text-tertiary: #3A5570;
+        --border: #132030;
+        --chip-bg: #0E1A28;
+        --chip-text: #6080A0;
+        --tl-line: #132030;
+        --st: rgba(255,255,255,0.76);
+        --st-dim: rgba(255,255,255,0.40);
+        --st-label: rgba(255,255,255,0.24);
+        --st-chip: rgba(255,255,255,0.05);
+        --st-chip-b: rgba(255,255,255,0.08);
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--page-bg);
+      font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 32px 16px 48px;
+      min-height: 100vh;
+    }
+    .cv-card {
+      display: flex;
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+    .sidebar {
+      width: 268px;
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      padding: 40px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      position: relative;
+    }
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: rgba(255,255,255,0.05);
+    }
+    .sb-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .sb-name { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: #fff; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .sb-tagline { font-size: 11px; font-weight: 300; font-style: italic; color: var(--st-dim); line-height: 1.5; }
+    .sb-sec { display: flex; flex-direction: column; gap: 11px; }
+    .sb-sec-label { font-size: 8.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--st-label); padding-bottom: 9px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .sb-contacts { display: flex; flex-direction: column; gap: 8px; }
+    .sb-contact { display: flex; align-items: flex-start; gap: 9px; font-size: 11px; color: var(--st-dim); text-decoration: none; transition: color 0.16s; line-height: 1.4; word-break: break-all; }
+    .sb-contact:hover { color: var(--accent); }
+    .sb-contact svg { width: 12px; height: 12px; flex-shrink: 0; margin-top: 1px; }
+    .sb-group { display: flex; flex-direction: column; gap: 7px; }
+    .sb-group-name { font-size: 8.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--st-label); }
+    .sb-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .sb-chip { font-size: 10.5px; padding: 3px 9px; border-radius: 4px; background: var(--st-chip); border: 1px solid var(--st-chip-b); color: var(--st); line-height: 1.4; }
+    .sb-chip.hi { background: rgba(45,212,191,0.14); border-color: rgba(45,212,191,0.28); color: var(--accent); font-weight: 500; }
+    .sb-edu { display: flex; flex-direction: column; gap: 4px; }
+    .sb-edu-deg { font-size: 11.5px; font-weight: 500; color: var(--st); line-height: 1.35; }
+    .sb-edu-school { font-size: 10.5px; color: var(--st-dim); }
+    .sb-edu-year { font-size: 10px; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; }
+    .sb-courses { display: flex; flex-direction: column; gap: 9px; }
+    .sb-course { font-size: 11px; color: var(--st-dim); padding-left: 13px; position: relative; line-height: 1.45; }
+    .sb-course::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 9px; line-height: 1.8; }
+    .sb-course span { display: block; font-size: 9.5px; color: var(--st-label); margin-top: 1px; }
+    .content { flex: 1; background: var(--content-bg); padding: 40px 36px; display: flex; flex-direction: column; gap: 34px; min-width: 0; }
+    .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .sec-label { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .sec-rule { flex: 1; height: 1px; background: var(--border); }
+    .summary-text { font-size: 13px; color: var(--text-secondary); line-height: 1.82; }
+    .summary-text strong { color: var(--text-primary); font-weight: 600; }
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item { display: grid; grid-template-columns: 13px 1fr; gap: 0 17px; padding-bottom: 26px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-rail { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+    .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; box-shadow: 0 0 0 3px var(--accent-dim); }
+    .tl-line { width: 1px; flex: 1; background: var(--tl-line); margin-top: 5px; }
+    .tl-item:last-child .tl-line { background: linear-gradient(to bottom, var(--tl-line), transparent); }
+    .tl-body { min-width: 0; }
+    .job-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 10px; margin-bottom: 2px; }
+    .job-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-primary); }
+    .job-period { font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.02em; white-space: nowrap; }
+    .job-co { font-size: 11.5px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .job-co .loc { color: var(--text-tertiary); font-weight: 400; }
+    .bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .bullets li { font-size: 12px; color: var(--text-secondary); padding-left: 14px; position: relative; line-height: 1.55; }
+    .bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 8.5px; line-height: 2; }
+    .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .proj-card { background: var(--chip-bg); border: 1px solid var(--border); border-radius: 8px; padding: 17px; display: flex; flex-direction: column; gap: 7px; }
+    .proj-name { font-family: 'Syne', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--text-primary); }
+    .proj-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+    .proj-tag { font-size: 10px; padding: 2px 7px; border-radius: 3px; background: var(--content-bg); border: 1px solid var(--border); color: var(--text-tertiary); }
+    @media (max-width: 680px) {
+      body { padding: 0; }
+      .cv-card { flex-direction: column; border-radius: 0; box-shadow: none; }
+      .sidebar { width: 100%; padding: 30px 20px; }
+      .sidebar::after { display: none; }
+      .content { padding: 30px 20px 40px; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .sb-contacts { flex-direction: row; flex-wrap: wrap; gap: 8px 16px; }
+    }
+  </style>
+</head>
 <body>
-<h1>Top Products</h1>
-<ul>
-  <li><a href="YOUR_CLICKBANK_LINK_1">Product 1</a></li>
-  <li><a href="YOUR_CLICKBANK_LINK_2">Product 2</a></li>
-</ul>
+
+<div class="cv-card">
+  <aside class="sidebar">
+    <div>
+      <p class="sb-eyebrow">Mobile Engineer</p>
+      <h1 class="sb-name">Osama<br>Hasan</h1>
+      <p class="sb-tagline">Flutter &amp; Android · 21M+ downloads across shipped apps</p>
+    </div>
+    <div class="sb-sec">
+      <p class="sb-sec-label">Contact</p>
+      <div class="sb-contacts">
+        <a class="sb-contact" href="mailto:osamahasan3meera@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          osamahasan3meera@gmail.com
+        </a>
+        <a class="sb-contact" href="tel:+962792062905">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.98.71 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.94.35 1.92.58 2.92.71A2 2 0 0 1 22 16.9z"/></svg>
+          +962 792 062 905
+        </a>
+        <a class="sb-contact" href="https://linkedin.com/in/osama-s-hasan" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/osama-s-hasan
+        </a>
+        <a class="sb-contact" href="https://github.com/Osama3meera" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github.com/Osama3meera
+        </a>
+        <span class="sb-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Amman, Jordan
+        </span>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <p class="sb-sec-label">Skills</p>
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <div class="sb-group">
+          <p class="sb-group-name">Languages &amp; Frameworks</p>
+          <div class="sb-chips">
+            <span class="sb-chip hi">Flutter</span><span class="sb-chip hi">Dart</span>
+            <span class="sb-chip">Kotlin</span><span class="sb-chip">Jetpack Compose</span><span class="sb-chip">Java</span>
+          </div>
+        </div>
+        <div class="sb-group">
+          <p class="sb-group-name">Architecture</p>
+          <div class="sb-chips">
+            <span class="sb-chip">Clean Architecture</span><span class="sb-chip">MVVM</span><span class="sb-chip">GetX</span><span class="sb-chip">BLoC</span>
+          </div>
+        </div>
+        <div class="sb-group">
+          <p class="sb-group-name">Tools &amp; Services</p>
+          <div class="sb-chips">
+            <span class="sb-chip">Firebase</span><span class="sb-chip">REST APIs</span><span class="sb-chip">WebSocket</span>
+            <span class="sb-chip">Retrofit</span><span class="sb-chip">Room DB</span><span class="sb-chip">Git</span><span class="sb-chip">Jira</span>
+          </div>
+        </div>
+        <div class="sb-group">
+          <p class="sb-group-name">Deployment</p>
+          <div class="sb-chips">
+            <span class="sb-chip">Google Play Console</span><span class="sb-chip">App Store Connect</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <p class="sb-sec-label">Education</p>
+      <div class="sb-edu">
+        <p class="sb-edu-deg">B.Sc. Information Technology &amp; Computing</p>
+        <p class="sb-edu-school">Arab Open University · Amman</p>
+        <p class="sb-edu-year">2020</p>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <p class="sb-sec-label">Courses</p>
+      <div class="sb-courses">
+        <div class="sb-course">Android Development<span>Step by Step Institute</span></div>
+        <div class="sb-course">Dagger, Coroutines &amp; Flutter<span>Udemy</span></div>
+        <div class="sb-course">Android Skill Badge<span>LinkedIn</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <section>
+      <div class="sec-head"><span class="sec-label">Profile</span><div class="sec-rule"></div></div>
+      <p class="summary-text">Experienced mobile engineer with deep expertise in <strong>Flutter and native Android</strong>. Led cross-functional teams and shipped apps accumulating <strong>21M+ combined downloads</strong>. Passionate about clean architecture, performance optimization, and delivering exceptional user experiences — proficient in Firebase, REST APIs, GetX, and BLoC.</p>
+    </section>
+    <section>
+      <div class="sec-head"><span class="sec-label">Experience</span><div class="sec-rule"></div></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Senior Flutter Developer</span><span class="job-period">Sept 2024 — Present</span></div>
+            <p class="job-co">Disty · Mndobi &nbsp;<span class="loc">· Riyadh, Saudi Arabia (Remote)</span></p>
+            <ul class="bullets">
+              <li>Led and mentored a cross-functional Flutter team, aligning technical decisions with business goals and product roadmap.</li>
+              <li>Integrated Firebase suite — Cloud Messaging, Crashlytics, Remote Config, and Analytics — for production-grade reliability.</li>
+              <li>Architected scalable, testable codebase using GetX state management with clean separation of concerns.</li>
+              <li>Built responsive, adaptive UIs with custom widgets and fluid animations for both iOS and Android.</li>
+              <li>Managed full release lifecycle on Google Play Console and Apple App Store Connect, including staged rollouts.</li>
+              <li>Integrated KSA-native payment gateways and loyalty/reward programs into the checkout flow.</li>
+              <li>Established code review standards, improving team code quality and reducing production bug rates.</li>
+              <li>Collaborated closely with backend teams to design and optimize RESTful API contracts.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Flutter &amp; Android Developer</span><span class="job-period">Apr 2022 – Jul 2022 &amp; Jan 2023 – Sept 2024</span></div>
+            <p class="job-co">Uhive · Genie9 &nbsp;<span class="loc">· Amman, Jordan (Hybrid)</span></p>
+            <ul class="bullets">
+              <li>Shipped new features for a metaverse-themed social networking app with a global user base.</li>
+              <li>Integrated in-app subscriptions and one-time purchases via Google Play Billing Library.</li>
+              <li>Implemented pixel-perfect UI from Figma designs, improving UX fidelity and design consistency.</li>
+              <li>Built and maintained core modules for a cross-platform cloud storage application.</li>
+              <li>Diagnosed and resolved critical production crashes, significantly improving app stability metrics.</li>
+              <li>Participated in agile sprint cycles, collaborating with product, design, and backend stakeholders.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Android Developer</span><span class="job-period">Jul 2022 – Jan 2023</span></div>
+            <p class="job-co">NADSOFT &nbsp;<span class="loc">· Amman, Jordan (Hybrid)</span></p>
+            <ul class="bullets">
+              <li>Developed features for WOLF — a large-scale social audio app — using Kotlin and Jetpack Compose.</li>
+              <li>Integrated real-time WebSocket communication for live in-app audio and messaging interactions.</li>
+              <li>Consumed REST APIs with Retrofit, implementing robust error handling and data parsing layers.</li>
+              <li>Wrote unit tests to safeguard business logic and prevent regressions across release cycles.</li>
+              <li>Applied SOLID principles and clean architecture patterns for long-term maintainability.</li>
+              <li>Coordinated with international engineering teams to deliver high-quality, crash-free releases.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Android Engineer</span><span class="job-period">Dec 2021 – Mar 2022</span></div>
+            <p class="job-co">QUICKO &nbsp;<span class="loc">· Amman, Jordan (Hybrid)</span></p>
+            <ul class="bullets">
+              <li>Built a grocery delivery app operating in Sydney, Australia, using Java and Android SDK.</li>
+              <li>Developed key customer-facing features: product browsing, cart management, and order tracking.</li>
+              <li>Collaborated with QA and backend teams in cross-functional sprints to deliver on schedule.</li>
+              <li>Managed bug reports and design improvements through Jira, maintaining clear ticket documentation.</li>
+              <li>Ensured cross-device compatibility across a wide range of Android screen sizes and API levels.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Android Developer</span><span class="job-period">Jul 2021 – Dec 2021</span></div>
+            <p class="job-co">Freelance &nbsp;<span class="loc">· Remote (Fiverr · Khamsat · Upwork)</span></p>
+            <ul class="bullets">
+              <li>Delivered Android features and bug fixes for multiple clients across diverse app domains.</li>
+              <li>Adapted quickly to unfamiliar codebases, maintaining delivery timelines and client satisfaction.</li>
+              <li>Managed client communication and requirements independently in a fully remote environment.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-rail"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <div class="job-top"><span class="job-title">Android Developer Trainee</span><span class="job-period">Mar 2021 – Jul 2021</span></div>
+            <p class="job-co">What's New IT Co &nbsp;<span class="loc">· Amman, Jordan</span></p>
+            <ul class="bullets">
+              <li>Completed an intensive Android development training program focused on real-world practices.</li>
+              <li>Built foundational proficiency in Java, Android SDK, and architectural patterns (MVC → MVVM).</li>
+              <li>Developed and presented training projects, receiving feedback from senior engineers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head"><span class="sec-label">Projects</span><div class="sec-rule"></div></div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <p class="proj-name">Masbaha</p>
+          <p class="proj-desc">Tasbih counter with multilingual support and accessible UI. Built with Kotlin and MVVM; includes in-app update support. Live on Google Play Store.</p>
+          <div class="proj-tags"><span class="proj-tag">Kotlin</span><span class="proj-tag">MVVM</span><span class="proj-tag">Play Store</span></div>
+        </div>
+        <div class="proj-card">
+          <p class="proj-name">Image Search App</p>
+          <p class="proj-desc">Unsplash-powered image browser with live keyword search. Clean MVVM architecture with Retrofit for API integration.</p>
+          <div class="proj-tags"><span class="proj-tag">Kotlin</span><span class="proj-tag">MVVM</span><span class="proj-tag">Unsplash API</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
 </body>
 </html>
